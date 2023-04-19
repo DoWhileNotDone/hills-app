@@ -13,6 +13,7 @@ A Logger for Hills
 
 3. Install package dependencies
    * docker-compose exec hills-app-php-fpm composer install
+   * npm install
 
 4. Configure site
    * cp .env.docker .env
@@ -26,17 +27,21 @@ A Logger for Hills
    * docker compose exec hills-app-php-fpm php artisan db:seed
 
 **Notes**
- - Uses PHP v8 and MySQL v8
+ - Uses PHP v8 and MySQL v8 - Laravel 10 with Vue 3 and Intertia.
+ - Built using node v18.
 
 ## Running Locally ##
 
 1. Start the docker containers (detached, so run in the background)
-   * docker compose up -d 
+   * docker compose up -d
 
 2. View the docker logs 
    * docker compose logs -f
 
-3. Using the containers
+3. Create and watch the assets using vite
+  * npm run dev
+
+4. Using the containers
    * The code can be edited in an ide, the directory is mapped into the php and nginx directories
      * http://hills.test:8881
    * Run the php unit tests
