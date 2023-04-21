@@ -27,7 +27,7 @@ A Logger for Hills
    * docker compose exec hills-app-php-fpm php artisan db:seed
 
 **Notes**
- - Uses PHP v8 and MySQL v8 - Laravel 10 with Vue 3 and Intertia.
+ - Uses PHP v8 and MySQL v8 - Laravel 10 with Vue 3 and Inertia.
  - Built using node v18.
 
 ## Running Locally ##

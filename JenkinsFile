@@ -1,0 +1,46 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout Repo') {
+          steps {
+            checkout scmGit(
+                branches: [[name: 'develop']],
+                userRemoteConfigs: [[url: 'https://github.com/DoWhileNotDone/hills-app']]
+            )
+          }
+        }
+        
+        stage('Composer Install') {
+          steps {
+            sh 'docker compose run --rm hills-app-php-fpm composer install'
+          }
+        }       
+        
+        stage('NPM Install') {
+          steps {
+                nodejs(nodeJSInstallationName: 'Node') {
+                  sh 'npm install'  
+                }
+          }
+        } 
+        
+        stage('Copy env') {
+          steps {
+            sh 'cp .env.docker .env'
+          }
+        }
+    
+        stage('Generate Artisan Key') {
+          steps {
+            sh 'docker compose run --rm hills-app-php-fpm php artisan key:generate'
+          }
+        }
+    
+        stage('Run PHP Test') {
+            steps {
+                sh 'docker compose run --rm hills-app-php-fpm php artisan test'
+            }
+        }
+    }
+}
